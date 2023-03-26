@@ -1,0 +1,7 @@
+version: "3.9"
+services:
+  kittychan:
+    build: .
+    container_name: kittychan_events
+    restart: always
+  

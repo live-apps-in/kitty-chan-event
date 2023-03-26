@@ -1,0 +1,43 @@
+{
+  "name": "kitty-chan-event",
+  "version": "1.0.0",
+  "description": "A lightweight socket client for kitty chan",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/main.ts",
+    "build:kitty_chan_proto": "npx proto-loader-gen-types --grpcLib=@grpc/grpc-js --outDir=./src/proto/ ./src/proto/kitty_chan.proto -y",
+    "build:proto": "cpx \"./src/proto/*.proto\" ./dist/proto",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "npm run lint -- --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/live-apps-in/kitty-chan-event.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/live-apps-in/kitty-chan-event/issues"
+  },
+  "homepage": "https://github.com/live-apps-in/kitty-chan-event#readme",
+  "dependencies": {
+    "@grpc/grpc-js": "^1.8.13",
+    "@grpc/proto-loader": "^0.7.6",
+    "@typegoose/typegoose": "^10.3.4",
+    "@types/node": "^18.15.8",
+    "discord.js": "^14.8.0",
+    "dotenv": "^16.0.3",
+    "flatted": "^3.2.7",
+    "grpc": "^1.24.11",
+    "inversify": "^6.0.1",
+    "protobufjs": "^7.2.2",
+    "reflect-metadata": "^0.1.13",
+    "ts-node": "^10.9.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
+    "eslint": "^8.36.0"
+  }
+}
