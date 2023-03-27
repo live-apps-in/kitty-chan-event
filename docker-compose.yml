@@ -3,5 +3,5 @@ services:
   kittychan:
     build: .
     container_name: kittychan_events
+    network_mode: host
     restart: always
-  

@@ -9,7 +9,11 @@ export class EventsHandler{
 	/**New Discord Message */
 	async messageCreate(guild: IGuild) {
 		guild.payload = JSON.stringify(guild.payload) as any;
-		KittyChanGrpc.messageCreate(guild as any, (err, res) => { console.log(err, res);});
+		KittyChanGrpc.messageCreate(guild as any, (err, res) => { 
+			if (err) {
+				console.log(err);
+			}
+		});
 	}
 	async messageReactionAdd() {
         
