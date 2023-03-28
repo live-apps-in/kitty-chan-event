@@ -1,6 +1,6 @@
-import { GuildMember, Message } from 'discord.js';
+import { GuildMember, Message, MessageReaction, User } from 'discord.js';
 import { injectable } from 'inversify';
-import { IGuild, IGuildMember, IMessageReaction} from '../interface/discord.interface';
+import { IEmoji, IGuild, IGuildMember, IMessageReaction} from '../interface/discord.interface';
 
 interface axiosConfig{
     method: string,
@@ -30,6 +30,30 @@ export class SharedService{
 
 		return guild;
 	}
+
+	///Extract Message and Guild from reaction
+	extractMessageReactionInfo(content: MessageReaction, user: User) {
+		const message = content.message;
+		const emoji = content.emoji;
+		
+		const messageReaction: IMessageReaction = {
+			guildId: message.guildId,
+			channelId: message.channelId,
+			userId: user.id,
+			isBot: content.me,
+			messageId: message.id,
+			messageContent: message.content,
+			emoji: {
+				animated: emoji.animated,
+				id: emoji.id,
+				name: emoji.name,
+				createdAt: emoji.createdAt
+			} as IEmoji,
+		};
+
+		return messageReaction;
+	}
+	
 	////Extract users and channel info
 	extractGuildFromMember(member: GuildMember) {
 		const guild = new IGuildMember(

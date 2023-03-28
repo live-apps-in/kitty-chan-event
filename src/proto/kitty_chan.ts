@@ -10,6 +10,7 @@ type SubtypeConstructor<Constructor extends new (...args: any) => any, Subtype> 
 export interface ProtoGrpcType {
   kitty_chan: {
     EventsService: SubtypeConstructor<typeof grpc.Client, _kitty_chan_EventsServiceClient> & { service: _kitty_chan_EventsServiceDefinition }
+    IEmoji: MessageTypeDefinition
     IGuild: MessageTypeDefinition
     IGuildMember: MessageTypeDefinition
     IMessageReaction: MessageTypeDefinition

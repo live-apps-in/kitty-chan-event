@@ -1,4 +1,4 @@
-import { ActivityType, Client, GatewayIntentBits, GuildMember, MessageReaction } from 'discord.js';
+import { ActivityType, Client, GatewayIntentBits, GuildMember, MessageReaction, User } from 'discord.js';
 import 'dotenv/config';
 import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
@@ -56,8 +56,10 @@ export class App{
 		/**
 		 * Message Reaction Add Event
 		 */
-		client.on('messageReactionAdd', async (reaction: MessageReaction, user) => {
-
+		client.on('messageReactionAdd', async (reaction: MessageReaction, user: User) => {
+			///Extract Message Info
+			const messageReaction = this.sharedService.extractMessageReactionInfo(reaction, user);
+			this.EventsHandler.messageReactionAdd(messageReaction);
 		});
 
 
