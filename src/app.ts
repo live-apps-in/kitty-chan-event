@@ -62,14 +62,14 @@ export class App{
 			this.EventsHandler.messageReactionAdd(messageReaction);
 		});
 
-
 		/**
-		 * All Events from Discord API
-		 * Currently using this for Message Reaction Remove
+		 * Message Reaction Remove
 		 */
-		client.on('raw', async (event) => {
-
-		});
+		client.on('messageReactionRemove', async (reaction: MessageReaction, user: User) => { 
+			///Extract Message Info
+			const messageReaction = this.sharedService.extractMessageReactionInfo(reaction, user);
+			this.EventsHandler.messageReactionRemove(messageReaction);
+		})
 
 
 		/**

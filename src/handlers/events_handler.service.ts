@@ -23,4 +23,13 @@ export class EventsHandler{
 			}
 		});
 	}
+	
+	/**Remove Message Reaction */
+	async messageReactionRemove(messageReaction: IMessageReaction) {
+		KittyChanGrpc.messageReactionRemove(messageReaction as any, (err, res) => { 
+			if (err) {
+				console.log(err);
+			}
+		});
+	}
 }
