@@ -1,6 +1,6 @@
-import { GuildMember, Message, MessageReaction, User } from 'discord.js';
+import { Guild, GuildMember, Message, MessageReaction, User } from 'discord.js';
 import { injectable } from 'inversify';
-import { IEmoji, IGuild, IGuildMember, IMessageReaction} from '../interface/discord.interface';
+import { IBasicGuild, IEmoji, IGuild, IGuildMember, IMessageReaction} from '../interface/discord.interface';
 
 interface axiosConfig{
     method: string,
@@ -29,6 +29,14 @@ export class SharedService{
 		);
 
 		return guild;
+	}
+
+	///Extract basic guild info
+	extractBasicGuildInfo(guild: Guild) {
+		const basicGuild: IBasicGuild = {
+			guildId: guild.id,
+			guildName: guild.name
+		};
 	}
 
 	///Extract Message and Guild from reaction

@@ -1,4 +1,4 @@
-import { ActivityType, Client, GatewayIntentBits, GuildMember, MessageReaction, User } from 'discord.js';
+import { ActivityType, Client, GatewayIntentBits, Guild, GuildMember, MessageReaction, User } from 'discord.js';
 import 'dotenv/config';
 import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
@@ -50,6 +50,7 @@ export class App{
 			///Extract Guild Info
 			const guildInfo = this.sharedService.extractGuildInfo(message);
 			this.EventsHandler.messageCreate(guildInfo);
+			return;
 		});
   
 
@@ -60,6 +61,7 @@ export class App{
 			///Extract Message Info
 			const messageReaction = this.sharedService.extractMessageReactionInfo(reaction, user);
 			this.EventsHandler.messageReactionAdd(messageReaction);
+			return;
 		});
 
 		/**
@@ -69,14 +71,17 @@ export class App{
 			///Extract Message Info
 			const messageReaction = this.sharedService.extractMessageReactionInfo(reaction, user);
 			this.EventsHandler.messageReactionRemove(messageReaction);
-		})
+			return;
+		});
 
 
 		/**
 		 * Guild Create Event
 		 */
-		client.on('guildCreate', async (guild) => {
-
+		client.on('guildCreate', async (guild: Guild) => {
+			const basicGuildInfo = this.sharedService.extractBasicGuildInfo(guild);
+			this.EventsHandler.guildCreate(guild);
+			return;
 		});
 
 
