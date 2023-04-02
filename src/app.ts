@@ -24,7 +24,7 @@ export const client = new Client({
 export class App{
 	constructor(
 		@inject(DI_TYPES.SharedService) private readonly sharedService: SharedService,
-		@inject(DI_TYPES.EventsHandler) private readonly EventsHandler:EventsHandler,
+		@inject(DI_TYPES.EventsHandler) private readonly EventsHandler: EventsHandler,
 	){}
 
 	async start() {
@@ -80,7 +80,7 @@ export class App{
 		 */
 		client.on('guildCreate', async (guild: Guild) => {
 			const basicGuildInfo = this.sharedService.extractBasicGuildInfo(guild);
-			this.EventsHandler.guildCreate(guild);
+			this.EventsHandler.guildCreate(basicGuildInfo);
 			return;
 		});
 
@@ -89,18 +89,23 @@ export class App{
 		 * Guild Delete Event
 		 */
 		client.on('guildDelete', async (guild) => {
-
+			const basicGuildInfo = this.sharedService.extractBasicGuildInfo(guild);
+			this.EventsHandler.guildDelete(basicGuildInfo);
+			return;
 		});
 
 		/**
 		 * User Joining Guild
 		 */
 		client.on('guildMemberAdd', (member: GuildMember) => {
-
+			const guildMember = this.sharedService.extractGuildMember(member);
+			this.EventsHandler.guildMemberAdd(guildMember);
 		});
 
+		/**User Leaving Guild */
 		client.on('guildMemberRemove', (member: GuildMember) => {
-
+			const guildMember = this.sharedService.extractGuildMember(member);
+			this.EventsHandler.guildMemberRemove(guildMember);
 		});
 
 		///Login kitty chan

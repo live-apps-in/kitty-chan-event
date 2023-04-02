@@ -1,6 +1,5 @@
-import { Guild } from 'discord.js';
 import { injectable } from 'inversify';
-import { IGuild, IMessageReaction } from '../interface/discord.interface';
+import { IBasicGuild, IGuild, IGuildMember, IMessageReaction } from '../interface/discord.interface';
 import { KittyChanGrpc } from '../microservice/gRPC.client';
 
 @injectable()
@@ -37,9 +36,40 @@ export class EventsHandler{
 		return;
 	}
 
-	/**Remove Message Reaction */
-	async guildCreate(guild: Guild) {
+	/**Guild Create */
+	async guildCreate(guild: IBasicGuild) {
 		KittyChanGrpc.guildCreate(guild as any, (err, res) => { 
+			if (err) {
+				console.log(err);
+			}
+		});
+		return;
+	}
+
+	/**Guild Delete */
+	async guildDelete(guild: IBasicGuild) {
+		KittyChanGrpc.guildDelete(guild as any, (err, res) => { 
+			if (err) {
+				console.log(err);
+			}
+		});
+		return;
+	}
+
+
+	/**Guild Member Create */
+	async guildMemberAdd(guildMember: IGuildMember) {
+		KittyChanGrpc.guildMemberAdd(guildMember as any, (err, res) => { 
+			if (err) {
+				console.log(err);
+			}
+		});
+		return;
+	}
+
+	/**Guild Member Delete */
+	async guildMemberRemove(guildMember: IGuildMember) {
+		KittyChanGrpc.guildMemberRemove(guildMember as any, (err, res) => { 
 			if (err) {
 				console.log(err);
 			}
