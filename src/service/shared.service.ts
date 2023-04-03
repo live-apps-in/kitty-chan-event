@@ -2,13 +2,6 @@ import { Guild, GuildMember, Message, MessageReaction, User } from 'discord.js';
 import { injectable } from 'inversify';
 import { IBasicGuild, IEmoji, IGuild, IGuildMember, IMessageReaction} from '../interface/discord.interface';
 
-interface axiosConfig{
-    method: string,
-    route: string,
-    body?: any
-}
-
-
 @injectable()
 export class SharedService{
 
@@ -73,7 +66,7 @@ export class SharedService{
 	}
 
 	////Extract Info from raw events
-	extractGuildFromRaw(event) {
+	extractMessageReactionFromRaw(event) {
 		const isBot = process.env.KITTY_CHAN_ID === event.d.user_id;
 		const guild = {
 			guildId: event.d.guild_id,

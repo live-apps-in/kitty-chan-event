@@ -1,4 +1,4 @@
-import { ActivityType, Client, GatewayIntentBits, Guild, GuildMember, MessageReaction, User } from 'discord.js';
+import { ActivityType, Client, GatewayIntentBits, Guild, GuildMember } from 'discord.js';
 import 'dotenv/config';
 import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
@@ -47,33 +47,29 @@ export class App{
 		 * 
 		 */
 		client.on('messageCreate', async (message) => {
-			///Extract Guild Info
 			const guildInfo = this.sharedService.extractGuildInfo(message);
 			this.EventsHandler.messageCreate(guildInfo);
 			return;
 		});
-  
 
 		/**
-		 * Message Reaction Add Event
+		 * Extract required actions from raw event
 		 */
-		client.on('messageReactionAdd', async (reaction: MessageReaction, user: User) => {
-			///Extract Message Info
-			const messageReaction = this.sharedService.extractMessageReactionInfo(reaction, user);
-			this.EventsHandler.messageReactionAdd(messageReaction);
-			return;
-		});
+		client.on('raw', async (event) => {
+			//Message Reaction Add
+			if (event.t === 'MESSAGE_REACTION_ADD') {
+				const messageReaction = this.sharedService.extractMessageReactionFromRaw(event);
+				this.EventsHandler.messageReactionAdd(messageReaction);
+				return;
+			}
 
-		/**
-		 * Message Reaction Remove
-		 */
-		client.on('messageReactionRemove', async (reaction: MessageReaction, user: User) => { 
-			///Extract Message Info
-			const messageReaction = this.sharedService.extractMessageReactionInfo(reaction, user);
-			this.EventsHandler.messageReactionRemove(messageReaction);
-			return;
+			//Message Reaction Remove
+			if (event.t === 'MESSAGE_REACTION_REMOVE') {
+				const messageReaction = this.sharedService.extractMessageReactionFromRaw(event);
+				this.EventsHandler.messageReactionRemove(messageReaction);
+				return;
+			}
 		});
-
 
 		/**
 		 * Guild Create Event

@@ -8,7 +8,7 @@ export class EventsHandler{
     
 	/**New Discord Message */
 	async messageCreate(guild: IGuild) {
-		KittyChanGrpc.messageCreate(guild as any, (err, res) => { 
+		KittyChanGrpc.messageCreate(guild as any, (err) => { 
 			if (err) {
 				console.log(err);
 			}
@@ -18,7 +18,7 @@ export class EventsHandler{
 
 	/**Add Message Reaction */
 	async messageReactionAdd(messageReaction: IMessageReaction) {
-		KittyChanGrpc.messageReactionAdd(messageReaction as any, (err, res) => { 
+		KittyChanGrpc.messageReactionAdd(messageReaction as any, (err) => { 
 			if (err) {
 				console.log(err);
 			}
@@ -28,7 +28,7 @@ export class EventsHandler{
 	
 	/**Remove Message Reaction */
 	async messageReactionRemove(messageReaction: IMessageReaction) {
-		KittyChanGrpc.messageReactionRemove(messageReaction as any, (err, res) => { 
+		KittyChanGrpc.messageReactionRemove(messageReaction as any, (err) => { 
 			if (err) {
 				console.log(err);
 			}
@@ -38,7 +38,7 @@ export class EventsHandler{
 
 	/**Guild Create */
 	async guildCreate(guild: IBasicGuild) {
-		KittyChanGrpc.guildCreate(guild as any, (err, res) => { 
+		KittyChanGrpc.guildCreate(guild as any, (err) => { 
 			if (err) {
 				console.log(err);
 			}
@@ -48,7 +48,7 @@ export class EventsHandler{
 
 	/**Guild Delete */
 	async guildDelete(guild: IBasicGuild) {
-		KittyChanGrpc.guildDelete(guild as any, (err, res) => { 
+		KittyChanGrpc.guildDelete(guild as any, (err) => { 
 			if (err) {
 				console.log(err);
 			}
@@ -59,7 +59,7 @@ export class EventsHandler{
 
 	/**Guild Member Create */
 	async guildMemberAdd(guildMember: IGuildMember) {
-		KittyChanGrpc.guildMemberAdd(guildMember as any, (err, res) => { 
+		KittyChanGrpc.guildMemberAdd(guildMember as any, (err) => { 
 			if (err) {
 				console.log(err);
 			}
@@ -69,7 +69,7 @@ export class EventsHandler{
 
 	/**Guild Member Delete */
 	async guildMemberRemove(guildMember: IGuildMember) {
-		KittyChanGrpc.guildMemberRemove(guildMember as any, (err, res) => { 
+		KittyChanGrpc.guildMemberRemove(guildMember as any, (err) => { 
 			if (err) {
 				console.log(err);
 			}
