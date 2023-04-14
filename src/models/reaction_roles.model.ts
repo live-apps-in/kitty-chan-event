@@ -1,22 +1,20 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
 
-
 export class ReactionRole {
   @prop()
-  	name: string;
+  name: string;
 
   @prop()
-  	guildId: string;
+  guildId: string;
 
   @prop()
-  	channelId: string;
+  channelId: string;
 
-  @prop({ type: Array<any>})
-  	rolesMapping: string[];
+  @prop({ type: Array<any> })
+  rolesMapping: string[];
 
   @prop()
-  	messageId: string;
+  messageId: string;
 }
 
 export const ReactionRoleModel = getModelForClass(ReactionRole);
-
