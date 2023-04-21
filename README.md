@@ -1,2 +1,2 @@
 # kitty-chan-event
-A lightweight socket client for kitty chan
+A lightweight web socket client for kitty chan
