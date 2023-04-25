@@ -1,29 +1,30 @@
-import {
-  ActivityType,
-  Client,
-  GatewayIntentBits,
-  Guild,
-  GuildMember,
-} from 'discord.js';
 import 'dotenv/config';
+import { Client } from '@live-apps/discord';
 import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
 import { DI_TYPES } from './core/inversify/types.di';
 import { EventsHandler } from './handlers/events_handler.service';
 import { SharedService } from './service/shared.service';
+import { DiscordEvents } from '@live-apps/discord/dist/shared/enum/events.enum';
+import { ActivityType, Guild, GuildMember } from 'discord.js';
 
 /**
- * Discord JS Client Config
+ * LiveApps Discord Client Config
  */
 export const client = new Client({
-  intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMembers,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent,
-    GatewayIntentBits.GuildMessageReactions,
+  events: [
+    DiscordEvents.guildCreate,
+    DiscordEvents.guildDelete,
+    DiscordEvents.messageCreate,
+    DiscordEvents.guildMemberAdd,
+    DiscordEvents.guildMemberRemove,
+    DiscordEvents.guildUpdate,
+    DiscordEvents.messageDelete,
+    DiscordEvents.messageUpdate,
+    DiscordEvents.raw,
   ],
-  shards: 'auto',
+  sync: false,
+  token: process.env.KITTY_CHAN_TOKEN,
 });
 
 @injectable()
@@ -40,16 +41,12 @@ export class App {
      * On client bootstrap
      */
     client.on('ready', async () => {
-      client.user.setActivity("people's wishes!", {
-        type: ActivityType.Listening,
-      });
+      client.bot.setActivity(`people's wishes!`, ActivityType.Listening);
       console.log('kitty chan connected 😸');
 
       ///Currently static
       setInterval(() => {
-        client.user.setActivity("people's wishes!", {
-          type: ActivityType.Listening,
-        });
+        client.bot.setActivity(`people's wishes!`, ActivityType.Listening);
       }, 60000);
     });
 
@@ -115,8 +112,5 @@ export class App {
       const guildMember = this.sharedService.extractGuildMember(member);
       this.eventsHandler.guildMemberRemove(guildMember);
     });
-
-    ///Login kitty chan
-    client.login(process.env.KITTY_CHAN_TOKEN);
   }
 }
