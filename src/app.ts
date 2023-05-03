@@ -6,7 +6,7 @@ import { DI_TYPES } from './core/inversify/types.di';
 import { EventsHandler } from './handlers/events_handler.service';
 import { SharedService } from './service/shared.service';
 import { DiscordEvents } from '@live-apps/discord/dist/shared/enum/events.enum';
-import { ActivityType, Guild, GuildMember } from 'discord.js';
+import { ActivityType, Guild, GuildMember, Message } from 'discord.js';
 
 /**
  * LiveApps Discord Client Config
@@ -54,10 +54,10 @@ export class App {
      * Message Create Event
      *
      */
-    client.on('messageCreate', async (message) => {
-      const guildInfo = this.sharedService.extractGuildInfo(message);
-      this.eventsHandler.messageCreate(guildInfo);
-      return;
+    client.on('messageCreate', async (message: Message) => {
+      const guildInfo = this.sharedService.extractGuildMessage(message);
+      console.log(guildInfo.mentions);
+      return this.eventsHandler.messageCreate(guildInfo);
     });
 
     /**
@@ -68,16 +68,16 @@ export class App {
       if (event.t === 'MESSAGE_REACTION_ADD') {
         const messageReaction =
           this.sharedService.extractMessageReactionFromRaw(event);
-        this.eventsHandler.messageReactionAdd(messageReaction);
-        return;
+
+        return this.eventsHandler.messageReactionAdd(messageReaction);
       }
 
       //Message Reaction Remove
       if (event.t === 'MESSAGE_REACTION_REMOVE') {
         const messageReaction =
           this.sharedService.extractMessageReactionFromRaw(event);
-        this.eventsHandler.messageReactionRemove(messageReaction);
-        return;
+
+        return this.eventsHandler.messageReactionRemove(messageReaction);
       }
     });
 
@@ -86,8 +86,8 @@ export class App {
      */
     client.on('guildCreate', async (guild: Guild) => {
       const basicGuildInfo = this.sharedService.extractBasicGuildInfo(guild);
-      this.eventsHandler.guildCreate(basicGuildInfo);
-      return;
+
+      return this.eventsHandler.guildCreate(basicGuildInfo);
     });
 
     /**
@@ -95,8 +95,8 @@ export class App {
      */
     client.on('guildDelete', async (guild) => {
       const basicGuildInfo = this.sharedService.extractBasicGuildInfo(guild);
-      this.eventsHandler.guildDelete(basicGuildInfo);
-      return;
+
+      return this.eventsHandler.guildDelete(basicGuildInfo);
     });
 
     /**
@@ -104,13 +104,15 @@ export class App {
      */
     client.on('guildMemberAdd', (member: GuildMember) => {
       const guildMember = this.sharedService.extractGuildMember(member);
-      this.eventsHandler.guildMemberAdd(guildMember);
+
+      return this.eventsHandler.guildMemberAdd(guildMember);
     });
 
     /**User Leaving Guild */
     client.on('guildMemberRemove', (member: GuildMember) => {
       const guildMember = this.sharedService.extractGuildMember(member);
-      this.eventsHandler.guildMemberRemove(guildMember);
+
+      return this.eventsHandler.guildMemberRemove(guildMember);
     });
   }
 }

@@ -1,8 +1,8 @@
 import { injectable } from 'inversify';
 import {
   IBasicGuild,
-  IGuild,
   IGuildMember,
+  IGuildMessage,
   IMessageReaction,
 } from '../interface/discord.interface';
 import { KittyChanGrpc } from '../microservice/gRPC.client';
@@ -10,13 +10,12 @@ import { KittyChanGrpc } from '../microservice/gRPC.client';
 @injectable()
 export class EventsHandler {
   /**New Discord Message */
-  async messageCreate(guild: IGuild) {
-    KittyChanGrpc.messageCreate(guild as any, (err) => {
+  async messageCreate(guild: IGuildMessage) {
+    return KittyChanGrpc.messageCreate(guild as any, (err) => {
       if (err) {
         console.log(err);
       }
     });
-    return;
   }
 
   /**Add Message Reaction */
