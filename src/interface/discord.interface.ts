@@ -11,9 +11,8 @@ export class IGuildMessage {
   public avatar?: string;
   public messageContent?: string;
   public mentions?: IMessageMentions;
-  public attachments?: Collection<string, Attachment>;
+  public attachments?: IMessageAttachments[];
   public isBot?: boolean;
-  public payload?: Message;
 }
 
 export class IMessageMentions {
@@ -28,6 +27,19 @@ export class IMessageMentionsUser {
 }
 export class IMessageMentionsRole {
   public roleId?: string;
+}
+
+export class IMessageAttachments {
+  public name: string;
+  public id: string;
+  public size: number;
+  public url: string;
+  public proxyURL: string;
+  public height: number;
+  public width: number;
+  public contentType: string;
+  public description: string;
+  public ephemeral: boolean;
 }
 
 /**Guild */

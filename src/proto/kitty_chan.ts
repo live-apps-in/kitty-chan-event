@@ -21,8 +21,12 @@ export interface ProtoGrpcType {
     > & { service: _kitty_chan_EventsServiceDefinition };
     IBasicGuild: MessageTypeDefinition;
     IEmoji: MessageTypeDefinition;
-    IGuild: MessageTypeDefinition;
     IGuildMember: MessageTypeDefinition;
+    IGuildMessage: MessageTypeDefinition;
+    IMessageAttachments: MessageTypeDefinition;
+    IMessageMentionRoles: MessageTypeDefinition;
+    IMessageMentionUsers: MessageTypeDefinition;
+    IMessageMentions: MessageTypeDefinition;
     IMessageReaction: MessageTypeDefinition;
     NoResponse: MessageTypeDefinition;
   };

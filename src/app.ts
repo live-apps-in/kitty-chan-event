@@ -56,7 +56,6 @@ export class App {
      */
     client.on('messageCreate', async (message: Message) => {
       const guildInfo = this.sharedService.extractGuildMessage(message);
-      console.log(guildInfo.mentions);
       return this.eventsHandler.messageCreate(guildInfo);
     });
 

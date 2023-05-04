@@ -12,7 +12,7 @@ import {
 export class SharedService {
   /**Guild Message */
   public extractGuildMessage(message: Message) {
-    const { guild, mentions } = message;
+    const { guild, mentions, attachments } = message;
 
     const guildMessage: IGuildMessage = {
       guildId: message.guildId,
@@ -22,13 +22,11 @@ export class SharedService {
       avatar: message.author.avatar,
       isBot: message.author.bot,
       messageContent: message.content,
-      attachments: message.attachments,
       messageId: message.id,
       username: message.author.username,
-      payload: message,
     };
 
-    ///Map Mentions
+    ///MessageMentions
     guildMessage.mentions = { hasMention: false };
     guildMessage.mentions.everyone = mentions.everyone;
     guildMessage.mentions.users = mentions.users.map((e) => {
@@ -45,6 +43,12 @@ export class SharedService {
     ) {
       guildMessage.mentions.hasMention = true;
     }
+
+    ///Message Attachments
+    guildMessage.attachments = [];
+    guildMessage.attachments = attachments.map((e) => {
+      return { ...e };
+    });
 
     return guildMessage;
   }
