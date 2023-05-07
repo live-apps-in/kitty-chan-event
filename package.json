@@ -1,5 +1,5 @@
 {
-  "name": "kitty-chan-event",
+  "name": "kitty-chan-events",
   "version": "1.0.0",
   "description": "A lightweight socket client for kitty chan",
   "main": "index.js",
