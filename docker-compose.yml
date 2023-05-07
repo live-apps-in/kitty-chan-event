@@ -2,7 +2,12 @@ version: "3.9"
 services:
   kittychan:
     build: .
-    image: kittychan_events
-    container_name: kittychan_events
-    network_mode: host
+    image: kittychan-events
+    container_name: kittychan-events
+    networks:
+      - kittychan-network
     restart: always
+  
+networks:
+  kittychan-network:
+    name: kittychan-network
