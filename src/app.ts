@@ -1,11 +1,11 @@
+import 'reflect-metadata';
 import 'dotenv/config';
 import { Client } from '@live-apps/discord';
 import { inject, injectable } from 'inversify';
-import 'reflect-metadata';
 import { DI_TYPES } from './core/inversify/types.di';
 import { EventsHandler } from './handlers/events_handler.service';
 import { SharedService } from './service/shared.service';
-import { DiscordEvents } from '@live-apps/discord/dist/shared/enum/events.enum';
+import { DiscordEvents } from '@live-apps/discord';
 import { ActivityType, Guild, GuildMember, Message } from 'discord.js';
 
 /**
