@@ -50,6 +50,7 @@ export class IBasicGuild {
 
 export class IGuildMember {
   public guildId?: string;
+  public guildName?: string;
   public userId?: string;
 }
 

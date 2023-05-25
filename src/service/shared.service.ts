@@ -89,6 +89,7 @@ export class SharedService {
   public extractGuildMember(member: GuildMember) {
     const guildMember: IGuildMember = {
       guildId: member.guild.id,
+      guildName: member.guild.name,
       userId: member.user.id,
     };
     return guildMember;
