@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "nodemon src/main.ts",
     "build:kitty_chan_proto": "npx proto-loader-gen-types --grpcLib=@grpc/grpc-js --outDir=./src/proto/ ./src/proto/kitty_chan.proto -y",
+    "build:proto": "cpx \"./src/proto/*.proto\" ./dist/proto",
     "lint": "eslint \"{src,apps,test}/**/*.ts\" --fix"
   },
   "repository": {
