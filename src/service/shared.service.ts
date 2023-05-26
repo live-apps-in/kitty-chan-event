@@ -91,6 +91,7 @@ export class SharedService {
       guildId: member.guild.id,
       guildName: member.guild.name,
       userId: member.user.id,
+      userName: member.user.username,
     };
     return guildMember;
   }
