@@ -6,6 +6,7 @@ import {
   IGuildMember,
   IGuildMessage,
   IMessageReaction,
+  IMessageUpdate,
 } from '../interface/discord.interface';
 
 @injectable()
@@ -51,6 +52,24 @@ export class SharedService {
     });
 
     return guildMessage;
+  }
+
+  public extractMessageUpdate(message: Message) {
+    const guild = {
+      guildId: message.guildId,
+      channelId: message.channelId,
+      messageId: message.id,
+      userId: message.author.id,
+      username: message.author.username,
+      avatar: message.author.avatar,
+      oldMessage: message.content,
+      newMessage: message.reactions.message.content,
+      createdAt: message.createdTimestamp.toString(),
+      editedAt: message.reactions.message.createdTimestamp.toString(),
+      isBot: message.author.bot,
+    } as IMessageUpdate;
+
+    return guild;
   }
 
   ///Extract basic guild info

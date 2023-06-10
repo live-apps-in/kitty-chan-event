@@ -4,14 +4,24 @@ import {
   IGuildMember,
   IGuildMessage,
   IMessageReaction,
+  IMessageUpdate,
 } from '../interface/discord.interface';
 import { KittyChanGrpc } from '../microservice/gRPC.client';
 
 @injectable()
 export class EventsHandler {
   /**New Discord Message */
-  async messageCreate(guild: IGuildMessage) {
-    return KittyChanGrpc.messageCreate(guild as any, (err) => {
+  async messageCreate(guildMessage: IGuildMessage) {
+    return KittyChanGrpc.messageCreate(guildMessage as any, (err) => {
+      if (err) {
+        console.log(err);
+      }
+    });
+  }
+
+  /**Edit Discord Message */
+  async messageUpdate(guildMessage: IMessageUpdate) {
+    return KittyChanGrpc.messageUpdate(guildMessage as any, (err) => {
       if (err) {
         console.log(err);
       }

@@ -61,8 +61,17 @@ export class App {
      *
      */
     client.on('messageCreate', async (message: Message) => {
-      const guildInfo = this.sharedService.extractGuildMessage(message);
-      return this.eventsHandler.messageCreate(guildInfo);
+      const guildMessage = this.sharedService.extractGuildMessage(message);
+      return this.eventsHandler.messageCreate(guildMessage);
+    });
+
+    /**
+     * Message Update Event
+     *
+     */
+    client.on('messageUpdate', async (message: Message) => {
+      const guildMessage = this.sharedService.extractMessageUpdate(message);
+      return this.eventsHandler.messageUpdate(guildMessage);
     });
 
     /**

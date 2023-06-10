@@ -3,6 +3,7 @@ package kitty_chan;
 
 service EventsService{
   rpc messageCreate (IGuildMessage) returns (NoResponse);
+  rpc messageUpdate (IGuildMessageUpdate) returns (NoResponse);
   rpc messageReactionAdd (IMessageReaction) returns (NoResponse);
   rpc messageReactionRemove (IMessageReaction) returns (NoResponse);
   rpc guildCreate (IBasicGuild) returns (NoResponse);
@@ -56,6 +57,21 @@ message IMessageAttachments{
   string contentType = 8;
   string description = 9;
   bool ephemeral = 10;
+}
+
+/*Guild Messgae Update*/
+message IGuildMessageUpdate{
+  string guildId = 1;
+  string channelId = 2;
+  string messageId = 3;
+  string userId = 4;
+  string username = 5;
+  string avatar = 6;
+  string oldMessage = 7;
+  string newMessage = 8;
+  string createdAt = 9;
+  string editedAt = 10;
+  bool isBot = 11;
 }
 
 message IBasicGuild{

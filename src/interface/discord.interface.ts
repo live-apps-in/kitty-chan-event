@@ -15,6 +15,21 @@ export class IGuildMessage {
   public isBot?: boolean;
 }
 
+/**Guild Message Update */
+export class IMessageUpdate {
+  public guildId?: string;
+  public channelId?: string;
+  public messageId?: string;
+  public userId?: string;
+  public username?: string;
+  public avatar?: string;
+  public oldMessage?: string;
+  public newMessage?: string;
+  public createdAt?: string;
+  public editedAt?: string;
+  public isBot?: boolean;
+}
+
 export class IMessageMentions {
   public hasMention?: boolean;
   public everyone?: boolean;
