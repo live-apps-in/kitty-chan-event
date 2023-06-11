@@ -55,6 +55,7 @@ export class SharedService {
   }
 
   public extractMessageUpdate(message: Message) {
+    console.log(JSON.stringify(message));
     const guild = {
       guildId: message.guildId,
       channelId: message.channelId,
@@ -65,7 +66,7 @@ export class SharedService {
       oldMessage: message.content,
       newMessage: message.reactions.message.content,
       createdAt: message.createdTimestamp.toString(),
-      editedAt: message.editedTimestamp.toString(),
+      editedAt: '',
       isBot: message.author.bot,
     } as IMessageUpdate;
 
