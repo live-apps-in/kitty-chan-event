@@ -75,6 +75,15 @@ export class App {
     });
 
     /**
+     * Message Delete Event
+     *
+     */
+    client.on('messageDelete', async (message: Message) => {
+      const guildMessage = this.sharedService.extractMessageUpdate(message);
+      return this.eventsHandler.messageUpdate(guildMessage);
+    });
+
+    /**
      * Extract required actions from raw event
      */
     client.on('raw', async (event) => {

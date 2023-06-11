@@ -65,7 +65,7 @@ export class SharedService {
       oldMessage: message.content,
       newMessage: message.reactions.message.content,
       createdAt: message.createdTimestamp.toString(),
-      editedAt: message.reactions.message.createdTimestamp.toString(),
+      editedAt: message.editedTimestamp.toString(),
       isBot: message.author.bot,
     } as IMessageUpdate;
 
