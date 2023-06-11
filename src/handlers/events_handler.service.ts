@@ -3,6 +3,7 @@ import {
   IBasicGuild,
   IGuildMember,
   IGuildMessage,
+  IMessageDelete,
   IMessageReaction,
   IMessageUpdate,
 } from '../interface/discord.interface';
@@ -22,6 +23,15 @@ export class EventsHandler {
   /**Edit Discord Message */
   async messageUpdate(guildMessage: IMessageUpdate) {
     return KittyChanGrpc.messageUpdate(guildMessage as any, (err) => {
+      if (err) {
+        console.log(err);
+      }
+    });
+  }
+
+  /**Delete Discord Message */
+  async messageDelete(guildMessage: IMessageDelete) {
+    return KittyChanGrpc.messageDelete(guildMessage as any, (err) => {
       if (err) {
         console.log(err);
       }

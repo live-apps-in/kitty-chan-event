@@ -5,6 +5,7 @@ import {
   IEmoji,
   IGuildMember,
   IGuildMessage,
+  IMessageDelete,
   IMessageReaction,
   IMessageUpdate,
 } from '../interface/discord.interface';
@@ -68,6 +69,23 @@ export class SharedService {
       editedAt: message.reactions.message.editedTimestamp.toString(),
       isBot: message.author.bot,
     } as IMessageUpdate;
+
+    return guild;
+  }
+
+  public extractMessageDelete(message: Message) {
+    const guild = {
+      guildId: message.guildId,
+      channelId: message.channelId,
+      messageId: message.id,
+      userId: message.author.id,
+      username: message.author.username,
+      avatar: message.author.avatar,
+      message: message.content,
+      createdAt: message.createdTimestamp.toString(),
+      editedAt: Math.floor(Date.now() / 1000).toString(),
+      isBot: message.author.bot,
+    } as IMessageDelete;
 
     return guild;
   }

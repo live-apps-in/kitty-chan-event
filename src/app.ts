@@ -79,8 +79,8 @@ export class App {
      *
      */
     client.on('messageDelete', async (message: Message) => {
-      const guildMessage = this.sharedService.extractMessageUpdate(message);
-      return this.eventsHandler.messageUpdate(guildMessage);
+      const guildMessage = this.sharedService.extractMessageDelete(message);
+      return this.eventsHandler.messageDelete(guildMessage);
     });
 
     /**
