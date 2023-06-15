@@ -2,6 +2,7 @@ import { injectable } from 'inversify';
 import {
   IBasicGuild,
   IGuildMember,
+  IGuildMemberUpdate,
   IGuildMessage,
   IMessageDelete,
   IMessageReaction,
@@ -91,6 +92,16 @@ export class EventsHandler {
   /**Guild Member Delete */
   async guildMemberRemove(guildMember: IGuildMember) {
     KittyChanGrpc.guildMemberRemove(guildMember as any, (err) => {
+      if (err) {
+        console.log(err);
+      }
+    });
+    return;
+  }
+
+  /**Guild Member Update */
+  async guildMemberUpdate(guildMember: IGuildMemberUpdate) {
+    KittyChanGrpc.guildMemberUpdate(guildMember as any, (err) => {
       if (err) {
         console.log(err);
       }

@@ -11,6 +11,7 @@ service EventsService{
   rpc guildDelete (IBasicGuild) returns (NoResponse);
   rpc guildMemberAdd (IGuildMember) returns (NoResponse);
   rpc guildMemberRemove (IGuildMember) returns (NoResponse);
+  rpc guildMemberUpdate (IGuildMemberUpdate) returns (NoResponse);
 }
 
 
@@ -99,6 +100,16 @@ message IGuildMember{
   string guildName = 2;
   string userId = 3;
   string userName = 4;
+}
+
+message IGuildMemberUpdate{
+  string guildId = 1;
+  string userId = 2;
+  string username = 3;
+  string nickname = 4;
+  string avatar = 5;
+  repeated string roles = 6;
+  bool isBot = 7;
 }
 
 message IMessageReaction{

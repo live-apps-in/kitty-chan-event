@@ -4,6 +4,7 @@ import {
   IBasicGuild,
   IEmoji,
   IGuildMember,
+  IGuildMemberUpdate,
   IGuildMessage,
   IMessageDelete,
   IMessageReaction,
@@ -11,9 +12,18 @@ import {
 } from '../interface/discord.interface';
 
 @injectable()
-export class SharedService {
+export class DiscordEventsProcessor {
+  /**Guild */
+  public buildBasicGuildInfo(guild: Guild) {
+    const basicGuild: IBasicGuild = {
+      guildId: guild.id,
+      guildName: guild.name,
+    };
+    return basicGuild;
+  }
+
   /**Guild Message */
-  public extractGuildMessage(message: Message) {
+  public buildGuildMessage(message: Message) {
     const { guild, mentions, attachments } = message;
 
     const guildMessage: IGuildMessage = {
@@ -55,7 +65,7 @@ export class SharedService {
     return guildMessage;
   }
 
-  public extractMessageUpdate(message: Message) {
+  public buildMessageUpdate(message: Message) {
     const guild = {
       guildId: message.guildId,
       channelId: message.channelId,
@@ -73,7 +83,7 @@ export class SharedService {
     return guild;
   }
 
-  public extractMessageDelete(message: Message) {
+  public buildMessageDelete(message: Message) {
     const guild = {
       guildId: message.guildId,
       channelId: message.channelId,
@@ -90,17 +100,8 @@ export class SharedService {
     return guild;
   }
 
-  ///Extract basic guild info
-  public extractBasicGuildInfo(guild: Guild) {
-    const basicGuild: IBasicGuild = {
-      guildId: guild.id,
-      guildName: guild.name,
-    };
-    return basicGuild;
-  }
-
   ///Extract Message and Guild from reaction
-  public extractMessageReactionInfo(content: MessageReaction, user: User) {
+  public buildMessageReactionInfo(content: MessageReaction, user: User) {
     const message = content.message;
     const emoji = content.emoji;
 
@@ -122,8 +123,8 @@ export class SharedService {
     return messageReaction;
   }
 
-  ////Extract users and channel info
-  public extractGuildMember(member: GuildMember) {
+  /**Guild Member */
+  public buildGuildMember(member: GuildMember) {
     const guildMember: IGuildMember = {
       guildId: member.guild.id,
       guildName: member.guild.name,
@@ -133,8 +134,24 @@ export class SharedService {
     return guildMember;
   }
 
-  ////Extract Info from raw events
-  public extractMessageReactionFromRaw(event) {
+  public buildGuildMemberUpdateFromRaw(event) {
+    const { d } = event;
+    const isBot = process.env.KITTY_CHAN_ID === d.user_id;
+
+    const guildMember: IGuildMemberUpdate = {
+      guildId: d.guild_id,
+      userId: d.user.id,
+      username: d.user.username,
+      nickname: d.nick,
+      avatar: d.user.avatar,
+      roles: d.roles,
+      isBot,
+    };
+    return guildMember;
+  }
+
+  /**Guild RAW */
+  public buildMessageReactionFromRaw(event) {
     const isBot = process.env.KITTY_CHAN_ID === event.d.user_id;
     const guild = {
       guildId: event.d.guild_id,

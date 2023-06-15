@@ -4,6 +4,6 @@ export const DI_TYPES = {
   /**
    * Services
    */
-  SharedService: Symbol.for('SharedService'),
+  DiscordEventsProcessor: Symbol.for('DiscordEventsProcessor'),
   EventsHandler: Symbol.for('EventsHandler'),
 };

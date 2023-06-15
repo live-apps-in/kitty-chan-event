@@ -4,7 +4,7 @@ import { Client } from '@live-apps/discord';
 import { inject, injectable } from 'inversify';
 import { DI_TYPES } from './core/inversify/types.di';
 import { EventsHandler } from './handlers/events_handler.service';
-import { SharedService } from './service/shared.service';
+import { DiscordEventsProcessor } from './service/discord-events-processor';
 import { DiscordEvents } from '@live-apps/discord';
 import { ActivityType, Guild, GuildMember, Message } from 'discord.js';
 
@@ -18,12 +18,12 @@ export const client = new Client({
     DiscordEvents.messageCreate,
     DiscordEvents.guildMemberAdd,
     DiscordEvents.guildMemberRemove,
+    DiscordEvents.guildMemberUpdate,
     DiscordEvents.guildUpdate,
     DiscordEvents.messageDelete,
     DiscordEvents.messageUpdate,
     DiscordEvents.raw,
   ],
-  sync: true,
   redisOptions: {
     host: process.env.REDIS_HOST,
     db: 0,
@@ -36,8 +36,8 @@ export const client = new Client({
 @injectable()
 export class App {
   constructor(
-    @inject(DI_TYPES.SharedService)
-    private readonly sharedService: SharedService,
+    @inject(DI_TYPES.DiscordEventsProcessor)
+    private readonly eventsProcessor: DiscordEventsProcessor,
     @inject(DI_TYPES.EventsHandler)
     private readonly eventsHandler: EventsHandler,
   ) {}
@@ -61,7 +61,7 @@ export class App {
      *
      */
     client.on('messageCreate', async (message: Message) => {
-      const guildMessage = this.sharedService.extractGuildMessage(message);
+      const guildMessage = this.eventsProcessor.buildGuildMessage(message);
       return this.eventsHandler.messageCreate(guildMessage);
     });
 
@@ -70,7 +70,7 @@ export class App {
      *
      */
     client.on('messageUpdate', async (message: Message) => {
-      const guildMessage = this.sharedService.extractMessageUpdate(message);
+      const guildMessage = this.eventsProcessor.buildMessageUpdate(message);
       return this.eventsHandler.messageUpdate(guildMessage);
     });
 
@@ -79,7 +79,7 @@ export class App {
      *
      */
     client.on('messageDelete', async (message: Message) => {
-      const guildMessage = this.sharedService.extractMessageDelete(message);
+      const guildMessage = this.eventsProcessor.buildMessageDelete(message);
       return this.eventsHandler.messageDelete(guildMessage);
     });
 
@@ -90,7 +90,7 @@ export class App {
       //Message Reaction Add
       if (event.t === 'MESSAGE_REACTION_ADD') {
         const messageReaction =
-          this.sharedService.extractMessageReactionFromRaw(event);
+          this.eventsProcessor.buildMessageReactionFromRaw(event);
 
         return this.eventsHandler.messageReactionAdd(messageReaction);
       }
@@ -98,9 +98,19 @@ export class App {
       //Message Reaction Remove
       if (event.t === 'MESSAGE_REACTION_REMOVE') {
         const messageReaction =
-          this.sharedService.extractMessageReactionFromRaw(event);
+          this.eventsProcessor.buildMessageReactionFromRaw(event);
 
         return this.eventsHandler.messageReactionRemove(messageReaction);
+      }
+
+      /**Update Guild User
+       * Avatar, Roles, Nickname
+       */
+      if (event.t === 'GUILD_MEMBER_UPDATE') {
+        const guildMember =
+          this.eventsProcessor.buildGuildMemberUpdateFromRaw(event);
+
+        return this.eventsHandler.guildMemberUpdate(guildMember);
       }
     });
 
@@ -108,7 +118,7 @@ export class App {
      * Guild Create Event
      */
     client.on('guildCreate', async (guild: Guild) => {
-      const basicGuildInfo = this.sharedService.extractBasicGuildInfo(guild);
+      const basicGuildInfo = this.eventsProcessor.buildBasicGuildInfo(guild);
 
       return this.eventsHandler.guildCreate(basicGuildInfo);
     });
@@ -117,7 +127,7 @@ export class App {
      * Guild Delete Event
      */
     client.on('guildDelete', async (guild) => {
-      const basicGuildInfo = this.sharedService.extractBasicGuildInfo(guild);
+      const basicGuildInfo = this.eventsProcessor.buildBasicGuildInfo(guild);
 
       return this.eventsHandler.guildDelete(basicGuildInfo);
     });
@@ -126,14 +136,14 @@ export class App {
      * User Joining Guild
      */
     client.on('guildMemberAdd', (member: GuildMember) => {
-      const guildMember = this.sharedService.extractGuildMember(member);
+      const guildMember = this.eventsProcessor.buildGuildMember(member);
 
       return this.eventsHandler.guildMemberAdd(guildMember);
     });
 
     /**User Leaving Guild */
     client.on('guildMemberRemove', (member: GuildMember) => {
-      const guildMember = this.sharedService.extractGuildMember(member);
+      const guildMember = this.eventsProcessor.buildGuildMember(member);
 
       return this.eventsHandler.guildMemberRemove(guildMember);
     });

@@ -83,6 +83,15 @@ export class IGuildMember {
   public userId?: string;
   public userName?: string;
 }
+export class IGuildMemberUpdate {
+  public guildId?: string;
+  public userId?: string;
+  public username?: string;
+  public nickname?: string;
+  public avatar?: string;
+  public roles?: string[];
+  public isBot?: boolean;
+}
 
 /**Discord Message Reaction */
 export interface IMessageReaction {
