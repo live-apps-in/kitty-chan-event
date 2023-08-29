@@ -6,7 +6,6 @@ services:
     container_name: kittychan-events
     networks:
       - kittychan-network
-    restart: always
   
 networks:
   kittychan-network:
