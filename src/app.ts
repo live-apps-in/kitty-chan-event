@@ -46,106 +46,110 @@ export class App {
     /**
      * On client bootstrap
      */
-    client.on('ready', async () => {
-      client.bot.setActivity(`people's wishes!`, ActivityType.Listening);
-      console.log('kitty chan connected 😸');
-
-      ///Currently static
-      setInterval(() => {
+    try {
+      client.on('ready', async () => {
         client.bot.setActivity(`people's wishes!`, ActivityType.Listening);
-      }, 60000);
-    });
+        console.log('kitty chan connected 😸');
 
-    /**
-     * Message Create Event
-     *
-     */
-    client.on('messageCreate', async (message: Message) => {
-      const guildMessage = this.eventsProcessor.buildGuildMessage(message);
-      return this.eventsHandler.messageCreate(guildMessage);
-    });
+        ///Currently static
+        setInterval(() => {
+          client.bot.setActivity(`people's wishes!`, ActivityType.Listening);
+        }, 60000);
+      });
 
-    /**
-     * Message Update Event
-     *
-     */
-    client.on('messageUpdate', async (message: Message) => {
-      const guildMessage = this.eventsProcessor.buildMessageUpdate(message);
-      return this.eventsHandler.messageUpdate(guildMessage);
-    });
-
-    /**
-     * Message Delete Event
-     *
-     */
-    client.on('messageDelete', async (message: Message) => {
-      const guildMessage = this.eventsProcessor.buildMessageDelete(message);
-      return this.eventsHandler.messageDelete(guildMessage);
-    });
-
-    /**
-     * Extract required actions from raw event
-     */
-    client.on('raw', async (event) => {
-      //Message Reaction Add
-      if (event.t === 'MESSAGE_REACTION_ADD') {
-        const messageReaction =
-          this.eventsProcessor.buildMessageReactionFromRaw(event);
-
-        return this.eventsHandler.messageReactionAdd(messageReaction);
-      }
-
-      //Message Reaction Remove
-      if (event.t === 'MESSAGE_REACTION_REMOVE') {
-        const messageReaction =
-          this.eventsProcessor.buildMessageReactionFromRaw(event);
-
-        return this.eventsHandler.messageReactionRemove(messageReaction);
-      }
-
-      /**Update Guild User
-       * Avatar, Roles, Nickname
+      /**
+       * Message Create Event
+       *
        */
-      if (event.t === 'GUILD_MEMBER_UPDATE') {
-        const guildMember =
-          this.eventsProcessor.buildGuildMemberUpdateFromRaw(event);
+      client.on('messageCreate', async (message: Message) => {
+        const guildMessage = this.eventsProcessor.buildGuildMessage(message);
+        return this.eventsHandler.messageCreate(guildMessage);
+      });
 
-        return this.eventsHandler.guildMemberUpdate(guildMember);
-      }
-    });
+      /**
+       * Message Update Event
+       *
+       */
+      client.on('messageUpdate', async (message: Message) => {
+        const guildMessage = this.eventsProcessor.buildMessageUpdate(message);
+        return this.eventsHandler.messageUpdate(guildMessage);
+      });
 
-    /**
-     * Guild Create Event
-     */
-    client.on('guildCreate', async (guild: Guild) => {
-      const basicGuildInfo = this.eventsProcessor.buildBasicGuildInfo(guild);
+      /**
+       * Message Delete Event
+       *
+       */
+      client.on('messageDelete', async (message: Message) => {
+        const guildMessage = this.eventsProcessor.buildMessageDelete(message);
+        return this.eventsHandler.messageDelete(guildMessage);
+      });
 
-      return this.eventsHandler.guildCreate(basicGuildInfo);
-    });
+      /**
+       * Extract required actions from raw event
+       */
+      client.on('raw', async (event) => {
+        //Message Reaction Add
+        if (event.t === 'MESSAGE_REACTION_ADD') {
+          const messageReaction =
+            this.eventsProcessor.buildMessageReactionFromRaw(event);
 
-    /**
-     * Guild Delete Event
-     */
-    client.on('guildDelete', async (guild) => {
-      const basicGuildInfo = this.eventsProcessor.buildBasicGuildInfo(guild);
+          return this.eventsHandler.messageReactionAdd(messageReaction);
+        }
 
-      return this.eventsHandler.guildDelete(basicGuildInfo);
-    });
+        //Message Reaction Remove
+        if (event.t === 'MESSAGE_REACTION_REMOVE') {
+          const messageReaction =
+            this.eventsProcessor.buildMessageReactionFromRaw(event);
 
-    /**
-     * User Joining Guild
-     */
-    client.on('guildMemberAdd', (member: GuildMember) => {
-      const guildMember = this.eventsProcessor.buildGuildMember(member);
+          return this.eventsHandler.messageReactionRemove(messageReaction);
+        }
 
-      return this.eventsHandler.guildMemberAdd(guildMember);
-    });
+        /**Update Guild User
+         * Avatar, Roles, Nickname
+         */
+        if (event.t === 'GUILD_MEMBER_UPDATE') {
+          const guildMember =
+            this.eventsProcessor.buildGuildMemberUpdateFromRaw(event);
 
-    /**User Leaving Guild */
-    client.on('guildMemberRemove', (member: GuildMember) => {
-      const guildMember = this.eventsProcessor.buildGuildMember(member);
+          return this.eventsHandler.guildMemberUpdate(guildMember);
+        }
+      });
 
-      return this.eventsHandler.guildMemberRemove(guildMember);
-    });
+      /**
+       * Guild Create Event
+       */
+      client.on('guildCreate', async (guild: Guild) => {
+        const basicGuildInfo = this.eventsProcessor.buildBasicGuildInfo(guild);
+
+        return this.eventsHandler.guildCreate(basicGuildInfo);
+      });
+
+      /**
+       * Guild Delete Event
+       */
+      client.on('guildDelete', async (guild) => {
+        const basicGuildInfo = this.eventsProcessor.buildBasicGuildInfo(guild);
+
+        return this.eventsHandler.guildDelete(basicGuildInfo);
+      });
+
+      /**
+       * User Joining Guild
+       */
+      client.on('guildMemberAdd', (member: GuildMember) => {
+        const guildMember = this.eventsProcessor.buildGuildMember(member);
+
+        return this.eventsHandler.guildMemberAdd(guildMember);
+      });
+
+      /**User Leaving Guild */
+      client.on('guildMemberRemove', (member: GuildMember) => {
+        const guildMember = this.eventsProcessor.buildGuildMember(member);
+
+        return this.eventsHandler.guildMemberRemove(guildMember);
+      });
+    } catch (error) {
+      console.log(`App Error - ${error}`);
+    }
   }
 }
