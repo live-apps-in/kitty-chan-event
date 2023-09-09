@@ -76,7 +76,7 @@ export class DiscordEventsProcessor {
       oldMessage: message.content,
       newMessage: message.reactions.message.content,
       createdAt: message.createdTimestamp.toString(),
-      editedAt: message.reactions.message.editedTimestamp.toString(),
+      editedAt: message.reactions.message.editedTimestamp?.toString(),
       isBot: message.author.bot,
     } as IMessageUpdate;
 
