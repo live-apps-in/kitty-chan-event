@@ -1,0 +1,36 @@
+name: kitty chan Events Build Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: Login to Docker
+        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build Docker image
+        run: |
+          docker build -t jagalive/kittychan-events:${{ github.sha }} .
+          docker tag jagalive/kittychan-events:${{ github.sha }} jagalive/kittychan-events:latest
+        working-directory: ./
+
+      - name: Push Docker image
+        run: |
+          docker push jagalive/kittychan-events:${{ github.sha }}
+          docker push jagalive/kittychan-events:latest
