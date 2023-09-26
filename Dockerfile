@@ -22,4 +22,4 @@ RUN npm install
 COPY . .
 RUN tsc
 RUN npm run build:proto
-CMD ["node","./dist/main.js"]
+CMD ["node", "./dist/main.js"]
