@@ -62,7 +62,6 @@ export class App {
        *
        */
       client.on('messageCreate', async (message: Message) => {
-        console.log('DEBUG - Message Create');
         const guildMessage = this.eventsProcessor.buildGuildMessage(message);
         return this.eventsHandler.messageCreate(guildMessage);
       });
