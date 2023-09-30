@@ -125,6 +125,15 @@ export class App {
       });
 
       /**
+       * Guild Update Event
+       */
+      client.on('guildUpdate', async (guild: Guild) => {
+        const basicGuildInfo = this.eventsProcessor.buildBasicGuildInfo(guild);
+
+        return this.eventsHandler.guildUpdate(basicGuildInfo);
+      });
+
+      /**
        * Guild Delete Event
        */
       client.on('guildDelete', async (guild) => {

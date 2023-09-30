@@ -69,6 +69,16 @@ export class EventsHandler {
     return;
   }
 
+  /**Guild Create */
+  async guildUpdate(guild: IBasicGuild) {
+    KittyChanGrpc.guildUpdate(guild as any, (err) => {
+      if (err) {
+        console.log(err);
+      }
+    });
+    return;
+  }
+
   /**Guild Delete */
   async guildDelete(guild: IBasicGuild) {
     KittyChanGrpc.guildDelete(guild as any, (err) => {

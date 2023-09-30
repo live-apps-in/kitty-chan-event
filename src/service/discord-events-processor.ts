@@ -18,6 +18,8 @@ export class DiscordEventsProcessor {
     const basicGuild: IBasicGuild = {
       guildId: guild.id,
       guildName: guild.name,
+      guildOwner: guild.ownerId,
+      guildMembersCount: guild.memberCount,
     };
     return basicGuild;
   }
