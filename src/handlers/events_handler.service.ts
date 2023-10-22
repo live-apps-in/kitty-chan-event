@@ -4,6 +4,7 @@ import {
   IGuildMember,
   IGuildMemberUpdate,
   IGuildMessage,
+  IGuildPresence,
   IMessageDelete,
   IMessageReaction,
   IMessageUpdate,
@@ -112,6 +113,16 @@ export class EventsHandler {
   /**Guild Member Update */
   async guildMemberUpdate(guildMember: IGuildMemberUpdate) {
     KittyChanGrpc.guildMemberUpdate(guildMember as any, (err) => {
+      if (err) {
+        console.log(err);
+      }
+    });
+    return;
+  }
+
+  /**Guild Presence Update */
+  async guildPresenceUpdate(guildPresence: IGuildPresence) {
+    KittyChanGrpc.guildPresenceUpdate(guildPresence as any, (err) => {
       if (err) {
         console.log(err);
       }

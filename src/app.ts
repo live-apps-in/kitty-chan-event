@@ -7,6 +7,7 @@ import { EventsHandler } from './handlers/events_handler.service';
 import { DiscordEventsProcessor } from './service/discord-events-processor';
 import { DiscordEvents } from '@live-apps/discord';
 import { ActivityType, Guild, GuildMember, Message } from 'discord.js';
+import { DiscordPresenceEvent } from './interface/discord_presence';
 
 /**
  * LiveApps Discord Client Config
@@ -22,6 +23,7 @@ export const client = new Client({
     DiscordEvents.guildUpdate,
     DiscordEvents.messageDelete,
     DiscordEvents.messageUpdate,
+    DiscordEvents.presenceUpdate,
     DiscordEvents.raw,
   ],
   redisOptions: {
@@ -157,8 +159,21 @@ export class App {
 
         return this.eventsHandler.guildMemberRemove(guildMember);
       });
+
+      /**
+       * Guild Presence Update
+       */
+      client.on(
+        'presenceUpdate',
+        async (presenceUpdate: DiscordPresenceEvent) => {
+          const guildPresence =
+            this.eventsProcessor.buildGuildPresenceUpdate(presenceUpdate);
+
+          return this.eventsHandler.guildPresenceUpdate(guildPresence);
+        },
+      );
     } catch (error) {
-      console.log(`App Error - ${error}`);
+      console.log(`LiveApps Discord Client Error - ${error}`);
     }
   }
 }

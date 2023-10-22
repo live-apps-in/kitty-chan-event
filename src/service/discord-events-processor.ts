@@ -6,10 +6,12 @@ import {
   IGuildMember,
   IGuildMemberUpdate,
   IGuildMessage,
+  IGuildPresence,
   IMessageDelete,
   IMessageReaction,
   IMessageUpdate,
 } from '../interface/discord.interface';
+import { DiscordPresenceEvent } from '../interface/discord_presence';
 
 @injectable()
 export class DiscordEventsProcessor {
@@ -165,5 +167,28 @@ export class DiscordEventsProcessor {
     } as IMessageReaction;
 
     return guild;
+  }
+
+  /**Guild Presence Update */
+  public buildGuildPresenceUpdate({ newPresence }: DiscordPresenceEvent) {
+    const presence = {
+      guildId: newPresence.guild.id,
+      userId: newPresence.userId,
+      status: newPresence.status,
+      activities: [],
+    } as IGuildPresence;
+
+    newPresence.activities.map((e) => {
+      presence.activities.push({
+        name: e.name,
+        type: e.type,
+        url: e.url,
+        details: e.details,
+        state: e.state,
+        createdTimestamp: e.createdTimestamp.toString(),
+      });
+    });
+
+    return presence;
   }
 }

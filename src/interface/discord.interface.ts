@@ -1,5 +1,14 @@
 import { Message } from 'discord.js';
 
+/**Guild */
+export class IBasicGuild {
+  guildId?: string;
+  guildName?: string;
+  guildOwner?: string;
+  guildMembersCount?: number;
+  guildIcon?: string;
+}
+
 /**Message */
 export class IGuildMessage {
   public guildId?: string;
@@ -71,13 +80,16 @@ export class IMessageAttachments {
   public ephemeral: boolean;
 }
 
-/**Guild */
-export class IBasicGuild {
+/**Discord Message Reaction */
+export interface IMessageReaction {
   guildId?: string;
-  guildName?: string;
-  guildOwner?: string;
-  guildMembersCount?: number;
-  guildIcon?: string;
+  channelId?: string;
+  messageId?: string;
+  userId?: string;
+  messageContent?: string;
+  isBot?: boolean;
+  emoji?: IEmoji;
+  payload?: Message;
 }
 
 export class IGuildMember {
@@ -96,22 +108,27 @@ export class IGuildMemberUpdate {
   public isBot?: boolean;
 }
 
-/**Discord Message Reaction */
-export interface IMessageReaction {
-  guildId?: string;
-  channelId?: string;
-  messageId?: string;
-  userId?: string;
-  messageContent?: string;
-  isBot?: boolean;
-  emoji?: IEmoji;
-  payload?: Message;
-}
-
 /**Discord Emoji */
 export interface IEmoji {
   name: string;
   id: string;
   animated: boolean;
   createdAt?: Date;
+}
+
+/**Guild Presence */
+export interface IGuildPresence {
+  guildId: string;
+  userId: string;
+  status: string;
+  activities: IGuildPresenceActivities[];
+}
+
+export interface IGuildPresenceActivities {
+  name: string;
+  type: number;
+  url: string;
+  details: string;
+  state: string;
+  createdTimestamp: string;
 }
