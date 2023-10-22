@@ -97,7 +97,7 @@ message IBasicGuild{
   string guildName = 2;
   string guildOwner = 3;
   int64 guildMembersCount = 4;
-  string guildAvatar = 5;
+  string guildIcon = 5;
 }
 
 message IGuildMember{

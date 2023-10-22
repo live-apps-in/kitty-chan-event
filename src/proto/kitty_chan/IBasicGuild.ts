@@ -7,7 +7,7 @@ export interface IBasicGuild {
   guildName?: string;
   guildOwner?: string;
   guildMembersCount?: number | string | Long;
-  guildAvatar?: string;
+  guildIcon?: string;
 }
 
 export interface IBasicGuild__Output {
@@ -15,5 +15,5 @@ export interface IBasicGuild__Output {
   guildName?: string;
   guildOwner?: string;
   guildMembersCount?: Long;
-  guildAvatar?: string;
+  guildIcon?: string;
 }
