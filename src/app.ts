@@ -50,7 +50,7 @@ export class App {
      */
     try {
       client.on('ready', async () => {
-        client.bot.setActivity(`people's wishes!`, ActivityType.Listening);
+        client.bot.setActivity(`with my 9 lives!`, ActivityType.Playing);
         console.log('kitty chan connected 😸');
 
         ///Currently static
