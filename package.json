@@ -21,24 +21,24 @@
   },
   "homepage": "https://github.com/live-apps-in/kitty-chan-event#readme",
   "dependencies": {
-    "@grpc/grpc-js": "^1.8.13",
-    "@grpc/proto-loader": "^0.7.6",
-    "@live-apps/discord": "^1.0.16",
-    "@typegoose/typegoose": "^10.3.4",
-    "@types/node": "^18.15.8",
-    "discord.js": "^14.8.0",
-    "dotenv": "^16.0.3",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "grpc": "^1.24.11",
-    "inversify": "^6.0.1",
-    "protobufjs": "^7.2.2",
-    "reflect-metadata": "^0.1.13",
-    "ts-node": "^10.9.1"
+    "@grpc/grpc-js": "^1.9.13",
+    "@grpc/proto-loader": "^0.7.10",
+    "@live-apps/discord": "^1.0.18",
+    "@typegoose/typegoose": "^12.0.0",
+    "@types/node": "^20.10.5",
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.3.1",
+    "inversify": "^6.0.2",
+    "protobufjs": "^7.2.5",
+    "reflect-metadata": "^0.2.1",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.56.0",
-    "@typescript-eslint/parser": "^5.56.0",
-    "eslint": "^8.36.0"
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.1",
+    "prettier": "^3.1.1"
   }
 }
