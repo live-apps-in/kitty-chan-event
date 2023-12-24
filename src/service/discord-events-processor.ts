@@ -37,7 +37,7 @@ export class DiscordEventsProcessor {
       userId: message.author.id,
       avatar: message.author.avatar,
       isBot: message.author.bot,
-      messageContent: message.content,
+      plainText: message.content,
       messageId: message.id,
       username: message.author.username,
     };
@@ -115,7 +115,7 @@ export class DiscordEventsProcessor {
       userId: user.id,
       isBot: content.me,
       messageId: message.id,
-      messageContent: message.content,
+      plainText: message.content,
       emoji: {
         animated: emoji.animated,
         id: emoji.id,

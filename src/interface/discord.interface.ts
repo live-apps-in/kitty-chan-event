@@ -18,7 +18,7 @@ export class IGuildMessage {
   public userId?: string;
   public username?: string;
   public avatar?: string;
-  public messageContent?: string;
+  public plainText?: string;
   public mentions?: IMessageMentions;
   public attachments?: IMessageAttachments[];
   public isBot?: boolean;
@@ -86,7 +86,7 @@ export interface IMessageReaction {
   channelId?: string;
   messageId?: string;
   userId?: string;
-  messageContent?: string;
+  plainText?: string;
   isBot?: boolean;
   emoji?: IEmoji;
   payload?: Message;
