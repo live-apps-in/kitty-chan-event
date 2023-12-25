@@ -40,6 +40,7 @@ export class DiscordEventsProcessor {
       plainMessage: message.content,
       messageId: message.id,
       username: message.author.username,
+      createdAt: message.createdAt,
     };
 
     ///MessageMentions
@@ -122,6 +123,7 @@ export class DiscordEventsProcessor {
         name: emoji.name,
         createdAt: emoji.createdAt,
       } as IEmoji,
+      createdAt: emoji.createdAt,
     };
 
     return messageReaction;
@@ -134,6 +136,7 @@ export class DiscordEventsProcessor {
       guildName: member.guild.name,
       userId: member.user.id,
       userName: member.user.username,
+      createdAt: member.joinedAt,
     };
     return guildMember;
   }

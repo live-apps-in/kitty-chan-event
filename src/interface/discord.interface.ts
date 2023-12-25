@@ -1,7 +1,7 @@
 import { Message } from 'discord.js';
 
 /**Guild */
-export class IBasicGuild {
+export interface IBasicGuild {
   guildId?: string;
   guildName?: string;
   guildOwner?: string;
@@ -10,74 +10,75 @@ export class IBasicGuild {
 }
 
 /**Message */
-export class IGuildMessage {
-  public guildId?: string;
-  public guildName?: string;
-  public channelId?: string;
-  public messageId?: string;
-  public userId?: string;
-  public username?: string;
-  public avatar?: string;
-  public plainMessage?: string;
-  public mentions?: IMessageMentions;
-  public attachments?: IMessageAttachments[];
-  public isBot?: boolean;
+export interface IGuildMessage {
+  guildId?: string;
+  guildName?: string;
+  channelId?: string;
+  messageId?: string;
+  userId?: string;
+  username?: string;
+  avatar?: string;
+  plainMessage?: string;
+  mentions?: IMessageMentions;
+  attachments?: IMessageAttachments[];
+  isBot?: boolean;
+  createdAt?: Date;
 }
 
 /**Guild Message Update */
-export class IMessageUpdate {
-  public guildId?: string;
-  public channelId?: string;
-  public messageId?: string;
-  public userId?: string;
-  public username?: string;
-  public avatar?: string;
-  public oldMessage?: string;
-  public newMessage?: string;
-  public createdAt?: string;
-  public editedAt?: string;
-  public isBot?: boolean;
+export interface IMessageUpdate {
+  guildId?: string;
+  channelId?: string;
+  messageId?: string;
+  userId?: string;
+  username?: string;
+  avatar?: string;
+  oldMessage?: string;
+  newMessage?: string;
+  createdAt?: string;
+  editedAt?: string;
+  isBot?: boolean;
 }
 
 /**Guild Message Delete */
-export class IMessageDelete {
-  public guildId?: string;
-  public channelId?: string;
-  public messageId?: string;
-  public userId?: string;
-  public username?: string;
-  public avatar?: string;
-  public message?: string;
-  public createdAt?: string;
-  public editedAt?: string;
-  public isBot?: boolean;
+export interface IMessageDelete {
+  guildId?: string;
+  channelId?: string;
+  messageId?: string;
+  userId?: string;
+  username?: string;
+  avatar?: string;
+  message?: string;
+  createdAt?: string;
+  editedAt?: string;
+  isBot?: boolean;
 }
 
-export class IMessageMentions {
-  public hasMention?: boolean;
-  public everyone?: boolean;
-  public users?: IMessageMentionsUser[];
-  public roles?: IMessageMentionsRole[];
+export interface IMessageMentions {
+  hasMention?: boolean;
+  everyone?: boolean;
+  users?: IMessageMentionsUser[];
+  roles?: IMessageMentionsRole[];
 }
 
-export class IMessageMentionsUser {
-  public userId?: string;
+export interface IMessageMentionsUser {
+  userId?: string;
 }
-export class IMessageMentionsRole {
-  public roleId?: string;
+export interface IMessageMentionsRole {
+  roleId?: string;
 }
 
-export class IMessageAttachments {
-  public name: string;
-  public id: string;
-  public size: number;
-  public url: string;
-  public proxyURL: string;
-  public height: number;
-  public width: number;
-  public contentType: string;
-  public description: string;
-  public ephemeral: boolean;
+export interface IMessageAttachments {
+  name: string;
+  id: string;
+  size: number;
+  url: string;
+  proxyURL: string;
+  height: number;
+  width: number;
+  contentType: string;
+  description: string;
+  ephemeral: boolean;
 }
 
 /**Discord Message Reaction */
@@ -90,22 +91,25 @@ export interface IMessageReaction {
   isBot?: boolean;
   emoji?: IEmoji;
   payload?: Message;
+  createdAt?: Date;
 }
 
-export class IGuildMember {
-  public guildId?: string;
-  public guildName?: string;
-  public userId?: string;
-  public userName?: string;
+export interface IGuildMember {
+  guildId?: string;
+  guildName?: string;
+  userId?: string;
+  userName?: string;
+  createdAt?: Date;
 }
-export class IGuildMemberUpdate {
-  public guildId?: string;
-  public userId?: string;
-  public username?: string;
-  public nickname?: string;
-  public avatar?: string;
-  public roles?: string[];
-  public isBot?: boolean;
+export interface IGuildMemberUpdate {
+  guildId?: string;
+  userId?: string;
+  username?: string;
+  nickname?: string;
+  avatar?: string;
+  roles?: string[];
+  isBot?: boolean;
+  updatedAt?: Date;
 }
 
 /**Discord Emoji */
