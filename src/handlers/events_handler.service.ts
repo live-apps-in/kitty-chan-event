@@ -17,7 +17,7 @@ export class EventsHandler {
   async messageCreate(guildMessage: IGuildMessage) {
     return KittyChanGrpc.messageCreate(guildMessage as any, (err) => {
       if (err) {
-        console.log(err);
+        console.log(err.message);
       }
     });
   }
@@ -26,7 +26,7 @@ export class EventsHandler {
   async messageUpdate(guildMessage: IMessageUpdate) {
     return KittyChanGrpc.messageUpdate(guildMessage as any, (err) => {
       if (err) {
-        console.log(err);
+        console.log(err.message);
       }
     });
   }
@@ -35,7 +35,7 @@ export class EventsHandler {
   async messageDelete(guildMessage: IMessageDelete) {
     return KittyChanGrpc.messageDelete(guildMessage as any, (err) => {
       if (err) {
-        console.log(err);
+        console.log(err.message);
       }
     });
   }
@@ -44,7 +44,7 @@ export class EventsHandler {
   async messageReactionAdd(messageReaction: IMessageReaction) {
     KittyChanGrpc.messageReactionAdd(messageReaction as any, (err) => {
       if (err) {
-        console.log(err);
+        console.log(err.message);
       }
     });
     return;
@@ -54,7 +54,7 @@ export class EventsHandler {
   async messageReactionRemove(messageReaction: IMessageReaction) {
     KittyChanGrpc.messageReactionRemove(messageReaction as any, (err) => {
       if (err) {
-        console.log(err);
+        console.log(err.message);
       }
     });
     return;
@@ -64,7 +64,7 @@ export class EventsHandler {
   async guildCreate(guild: IBasicGuild) {
     KittyChanGrpc.guildCreate(guild as any, (err) => {
       if (err) {
-        console.log(err);
+        console.log(err.message);
       }
     });
     return;
@@ -74,7 +74,7 @@ export class EventsHandler {
   async guildUpdate(guild: IBasicGuild) {
     KittyChanGrpc.guildUpdate(guild as any, (err) => {
       if (err) {
-        console.log(err);
+        console.log(err.message);
       }
     });
     return;
@@ -84,7 +84,7 @@ export class EventsHandler {
   async guildDelete(guild: IBasicGuild) {
     KittyChanGrpc.guildDelete(guild as any, (err) => {
       if (err) {
-        console.log(err);
+        console.log(err.message);
       }
     });
     return;
@@ -94,7 +94,7 @@ export class EventsHandler {
   async guildMemberAdd(guildMember: IGuildMember) {
     KittyChanGrpc.guildMemberAdd(guildMember as any, (err) => {
       if (err) {
-        console.log(err);
+        console.log(err.message);
       }
     });
     return;
@@ -104,7 +104,7 @@ export class EventsHandler {
   async guildMemberRemove(guildMember: IGuildMember) {
     KittyChanGrpc.guildMemberRemove(guildMember as any, (err) => {
       if (err) {
-        console.log(err);
+        console.log(err.message);
       }
     });
     return;
@@ -114,7 +114,7 @@ export class EventsHandler {
   async guildMemberUpdate(guildMember: IGuildMemberUpdate) {
     KittyChanGrpc.guildMemberUpdate(guildMember as any, (err) => {
       if (err) {
-        console.log(err);
+        console.log(err.message);
       }
     });
     return;
@@ -124,7 +124,7 @@ export class EventsHandler {
   async guildPresenceUpdate(guildPresence: IGuildPresence) {
     KittyChanGrpc.guildPresenceUpdate(guildPresence as any, (err) => {
       if (err) {
-        console.log(err);
+        console.log(err.message);
       }
     });
     return;
