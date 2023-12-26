@@ -91,8 +91,8 @@ export class EventsHandler {
   }
 
   /**Guild Member Create */
-  async guildMemberAdd(guildMember: IGuildMember) {
-    KittyChanGrpc.guildMemberAdd(guildMember as any, (err) => {
+  async guildMemberCreate(guildMember: IGuildMember) {
+    KittyChanGrpc.guildMemberCreate(guildMember as any, (err) => {
       if (err) {
         console.log(err.message);
       }

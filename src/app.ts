@@ -150,7 +150,7 @@ export class App {
       client.on('guildMemberAdd', (member: GuildMember) => {
         const guildMember = this.eventsProcessor.buildGuildMember(member);
 
-        return this.eventsHandler.guildMemberAdd(guildMember);
+        return this.eventsHandler.guildMemberCreate(guildMember);
       });
 
       /**User Leaving Guild */
