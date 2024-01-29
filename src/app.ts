@@ -52,11 +52,6 @@ export class App {
       client.on('ready', async () => {
         client.bot.setActivity(`with my 9 lives!`, ActivityType.Playing);
         console.log('kitty chan connected 😸');
-
-        ///Currently static
-        setInterval(() => {
-          client.bot.setActivity(`people's wishes!`, ActivityType.Listening);
-        }, 60000);
       });
 
       /**
